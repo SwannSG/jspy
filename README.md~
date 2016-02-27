@@ -44,7 +44,7 @@ var l_obj = new py.List({name: 'Joe', surname: 'Bloggs', age: 25},
 
 ####count
 
-count(value) takes a value and returns the number of times an element = value occurs in the list.
+*count(value)* takes a value and returns the number of times an element = value occurs in the list.
 
 ```javascript
 var l = new py.List(1096, 23,4,1,1096,56,10);
@@ -53,7 +53,7 @@ var r = l.count(1096);			// returns 2
 
 ####append
 
-append(value) adds an element=value to the end of the list. Equivalent of array.push(value) in javascript. 
+*append(value)* adds an element=value to the end of the list. Equivalent of array.push(value) in javascript. 
 
 
 ```javascript
@@ -65,7 +65,7 @@ console.log(l)				/ [1096, 23, 4, 1, 1096, 56, 10, 22]
 
 ####insert
 
-insert(index, object) inserts 'object' at position 'index' into the list
+*insert(index, object)* inserts 'object' at position 'index' into the list
 
 ```javascript
 console.log(l)				/ [1096, 23, 4, 1, 1096, 56, 10]
@@ -74,8 +74,9 @@ l.insert(3,99)				/ [1096, 23, 4, 99, 1, 1096, 56, 10]
 
 ####pop
 
-pop() with no argument removes and returns the last element from the list
-pop(index) with an argument removes and returns the element at 'index' from the list
+*pop()* with no argument removes and returns the last element from the list
+
+*pop(index)* with an argument removes and returns the element at 'index' from the list
 
 ```javascript
 console.log(l)				/ [1096, 23, 4, 99, 1, 1096, 56, 10]
