@@ -195,10 +195,29 @@ console.log(l);
 //  {name:"Joe", surname:"Bloggs", age:25}]
 ```
 
+The default sort method for *sort()* is shown below. When *sortObj.cmp=''* then this default sort method is used. It seems to work fine for most scenarios.
 
-
-
-
+```javascript
+var basicPrimitiveCmp = function(a,b) {
+    /*
+     values a,b must be primitives
+     sorts numeric ascending,
+     sorts characters alphabetically
+     */
+    if (a < b) {
+        // a before b
+        return -1;
+    }
+    else if (a > b) {
+        // b before a
+        return 1;
+    }
+    else {
+        // a == b
+        return 0;
+    }
+}
+```
 
 ####extend
 

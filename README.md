@@ -132,7 +132,7 @@ console.log(l);
 
 We do make allowance for sorting reliably on "simple" objects as a convenience and this is shown later. 
 
-Where very powerful sort and compare functionality is required there is an option to provide this as a parameter to *sort({sortObj})*. This is a very useful capability and provides a solution for almost any sort requirement.
+Where very powerful sort and compare functionality is required there is an option to provide this as a parameter to *sort(sortObj)*. This is a very useful capability and provides a solution for almost any sort requirement.
 
 Simple sort
 ```javascript
@@ -169,7 +169,7 @@ var sortObj = {cmp: '',	/compare function or use default compare function
 
 *sortObj.cmp* is the desired compare function. Most of the time this can be set to an empty string as the default compare works fine.
 
-*sortObj.key* is a function that returns the sort_key to be used #####which must be a primitive#####. The function is implicitly passed each object in the list as an argument.
+*sortObj.key* is a function that returns the sort_key to be used **which must be a primitive**. The function is implicitly passed each object in the list as an argument.
 
 
 Sort on an object with more than one property.
