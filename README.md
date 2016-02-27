@@ -99,6 +99,75 @@ l.pop(5)
 // returns 1096 and list l becomes [1096, 23, 4, 99, 1, 56]
 ```
 
+####remove
+
+*remove(value)* removes the first element found in the list where element=value. Nothing is returned.
+
+```javascript
+// create new list 'l'
+var l = new py.List(1096, 23, 4, 1, 1096, 56, 10)
+console.log(l)
+// [1096, 23, 4, 99, 1, 1096, 56, 10]
+l.remove(1096);
+// [23, 4, 99, 1, 1096, 56, 10]
+```
+
+####reverse
+
+*reverse()* reverses the order of the list.
+
+```javascript
+// create new list 'l'
+var l = new py.List(1096, 23, 4, 1, 1096, 56, 10)
+console.log(l)
+// [1096, 23, 4, 99, 1, 1096, 56, 10]
+l.reverse();
+console.log(l)
+// [10, 56, 1096, 1, 99, 4, 23, 1096]
+```
+
+####sort
+
+
+
+
+
+
+
+
+
+
+
+####extend
+
+*extend(x)* extends the list. x can either be a set of comma separated values or another List object. 
+
+
+Example of *extend* with comma separated values'
+```javascript
+// create new list 'l'
+var l = new py.List(1096, 23, 4, 1, 1096, 56, 10)
+console.log(l)
+// [1096, 23, 4, 99, 1, 1096, 56, 10]
+l.extend(15, 16, 17);
+console.log(l);
+// [1096, 23, 4, 99, 1, 1096, 56, 10, 15, 16, 17]
+```
+
+Example of *extend* with another List object.
+```javascript
+// create new list 'l'
+var l = new py.List(1096, 23, 4, 1, 1096, 56, 10)
+console.log(l)
+// [1096, 23, 4, 99, 1, 1096, 56, 10]
+var l2 = new py.List(15, 16, 17)
+l.extend(l2);
+console.log(l);
+// [1096, 23, 4, 99, 1, 1096, 56, 10, 15, 16, 17]
+```
+
+
+
 
 
 
