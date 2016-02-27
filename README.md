@@ -57,10 +57,14 @@ var r = l.count(1096);			// returns 2
 
 
 ```javascript
-var l = new py.List(1096, 23, 4, 1, 1096, 56, 10)	// create new list 'l'
-console.log(l)										// [1096, 23, 4, 1, 1096, 56, 10]
+// create new list 'l'
+var l = new py.List(1096, 23, 4, 1, 1096, 56, 10)	
+console.log(l)
+// [1096, 23, 4, 1, 1096, 56, 10]
 l.append(22)				
-console.log(l)										// [1096, 23, 4, 1, 1096, 56, 10, 22]
+console.log(l)
+// [1096, 23, 4, 1, 1096, 56, 10, 22]
+
 ```
 
 
@@ -69,9 +73,13 @@ console.log(l)										// [1096, 23, 4, 1, 1096, 56, 10, 22]
 *insert(index, object)* inserts 'object' at position 'index' into the list
 
 ```javascript
-var l = new py.List(1096, 23, 4, 1, 1096, 56, 10)	// create new list 'l'
-console.log(l)										// [1096, 23, 4, 1, 1096, 56, 10]
-l.insert(3,99)										// [1096, 23, 4, 99, 1, 1096, 56, 10]
+// create new list 'l'
+var l = new py.List(1096, 23, 4, 1, 1096, 56, 10)	
+console.log(l)
+// [1096, 23, 4, 1, 1096, 56, 10]
+l.insert(3,99)
+console.log(l);
+// [1096, 23, 4, 99, 1, 1096, 56, 10]
 ```
 
 ####pop
@@ -81,10 +89,14 @@ l.insert(3,99)										// [1096, 23, 4, 99, 1, 1096, 56, 10]
 *pop(index)* with an argument removes and returns the element at 'index' from the list
 
 ```javascript
-var l = new py.List(1096, 23, 4, 1, 1096, 56, 10)	// create new list 'l'
-console.log(l)										// [1096, 23, 4, 99, 1, 1096, 56, 10]
-l.pop()												// returns 10 and list becomes [1096, 23, 4, 99, 1, 1096, 56]
-l.pop(5)											// returns 1096 and list becomes [1096, 23, 4, 99, 1, 56]
+// create new list 'l'
+var l = new py.List(1096, 23, 4, 1, 1096, 56, 10)
+console.log(l)
+// [1096, 23, 4, 99, 1, 1096, 56, 10]
+l.pop()
+// returns 10 and list l becomes [1096, 23, 4, 99, 1, 1096, 56]
+l.pop(5)
+// returns 1096 and list l becomes [1096, 23, 4, 99, 1, 56]
 ```
 
 
