@@ -266,8 +266,13 @@
 
 
             this.arr = [];
-            for (var i=0; i< arguments.length; i++) {
-                this.arr.push(arguments[i]);
+            if (arguments.length===1 && _.isArray(arguments[0])) {
+                this.arr = arguments[0];
+            }
+            else {
+                for (var i = 0; i < arguments.length; i++) {
+                    this.arr.push(arguments[i]);
+                }
             }
             if (typeof(this.count) !== 'function') {
                 List.prototype.count = count;

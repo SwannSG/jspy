@@ -4,7 +4,7 @@ The idea behind py_lite is to implement some useful Python functionality. If you
 
 ###Getting Started
 
-Include py_lite.js and lodash.js (underscore should be plug compatible with lodash.js but this has not been tested). The dependency is very small and the only function used is _.isEqual(x,y) to check the equivalence of two objects.
+Include py_lite.js and lodash.js (underscore should be plug compatible with lodash.js but this has not been tested). The dependency is very small and the only functions used are _.isEqual(x,y) and _.isArray(arr) to check the equivalence of two objects.
 
 ```html
 <!DOCTYPE html>
@@ -162,7 +162,7 @@ An importand word of caution. Where the objects in the list have more than one p
 
 *sortObj* is an object literal and has the form
 ```javascript
-var sortObj = {cmp: '',	/compare function or use default compare function
+var sortObj = {cmp: '',	// compare function or use default compare function
 			   key: function(x) {return doSomethingToGetSortKeyWhichMustBeAPrimitive;},
 			   reverse: false}	
 ```
