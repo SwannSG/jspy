@@ -3,6 +3,7 @@
  *
  * tests for List constructor
  */
+load(['py_lite.min.js']);
 load(['py_lite.js']);
 load(['lodash.js']);
 

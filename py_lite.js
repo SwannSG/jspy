@@ -261,6 +261,9 @@
             return JSON.stringify(this.arr);
         }
 
+        var print = function(x) {
+            console.log(JSON.stringify(x));
+        }
 
         var List =  function() {
 
@@ -328,7 +331,8 @@
         List.prototype = {constructor: List,
             toString: displayList};
 
-        return {List: List};
+        return {List: List,
+                print: print};
     }
 
     // test for global window object, as Spider Monkey standalone does not have it
