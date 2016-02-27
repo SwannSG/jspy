@@ -118,15 +118,86 @@ l.remove(1096);
 
 ```javascript
 // create new list 'l'
-var l = new py.List(1096, 23, 4, 1, 1096, 56, 10)
-console.log(l)
+var l = new py.List(1096, 23, 4, 1, 1096, 56, 10);
+console.log(l);
 // [1096, 23, 4, 99, 1, 1096, 56, 10]
 l.reverse();
-console.log(l)
+console.log(l);
 // [10, 56, 1096, 1, 99, 4, 23, 1096]
 ```
 
 ####sort
+
+*sort()* is the most complex of the List methods. It is important to keep in mind what the sort_key is. The sort_key must be a Javascript primitive i.e. number, string or boolean or a combination of these.
+
+We do make allowance for sorting reliably on "simple" objects as a convenience and this is shown later. 
+
+Where very powerful sort and compare functionality is required there is an option to provide this as a parameter to *sort({sortObj})*. This is a very useful capability and provides a solution for almost any sort requirement.
+
+Simple sort
+```javascript
+// create new list 'l'
+var l = new py.List(1, 4, 10, 23, 56, 99, 1096, 1096, 'a', 'b', 'c', 'd', '1a');
+console.log(l);
+// [1, 4, 10, 23, 56, 99, 1096, 1096, 'a', 'b', 'c', 'd', '1a']
+l.sort();
+console.log(l);
+[1, 4, 10, 23, 56, 99, 1096, 1096, '1a', 'a', 'b', 'c', 'd']
+```
+
+Sort on a simple object with a single key-value pair. By default we use the key in the key-value pair as the sort key. So in an object {someKey: 200} we will have *sort_key='someKey'*, not *sort_key=200*. This behaviour can be changed by passing a *sortObj* to *sort(sortObj)*.
+
+```javascript
+// create new list 'l'
+var l = new List({z:1}, {abc:5}, {w:24}, {z:1},{wer: 'a'}, {rus:'b'}, {vuw:'c'})
+console.log(l);
+// [{z:1}, {abc:5}, {w:24}, {z:1},{wer: 'a'}, {rus:'b'}, {vuw:'c'}]
+l.sort()
+// sort is uses z, abc, w, z, wer, rus, vuw as the sort_key
+console.log(l);
+// [{'abc': 5}, {'rus': 'b'}, {'vuw': 'c'}, {'w': 24}, {'wer': 'a'}, {'z': 1}, {'z': 1}]
+```
+
+An importand word of caution. Where the objects in the list have more than one property {property1: value, property2:value} do not use *sort()*. This is because the property order in a Javascrript object is not guaranteed. So  {property1: value, property2:value} can arbitrarily become {property2: value, property1:value} and then the simple sort, which picks up the first property name on the object as the key, will not work correctly. To solve this we use *sort(sortObj)* on a complex object.
+
+*sortObj* is an object literal and has the form
+```javascript
+var sortObj = {cmp: '',	/compare function or use default compare function
+			   key: function(x) {return doSomethingToGetSortKeyWhichMustBeAPrimitive;},
+			   reverse: false}	
+```
+
+*sortObj.cmp* is the desired compare function. Most of the time this can be set to an empty string as the default compare works fine.
+
+*sortObj.key* is a function that returns the sort_key to be used #####which must be a primitive#####. The function is implicitly passed each object in the list as an argument.
+
+
+Sort on an object with more than one property.
+```javascript
+// create new list 'l'
+var l = new List({name: 'Joe', surname: 'Bloggs', age: 25},
+        		 {name: 'Mary', surname: 'Knoetzen', age: 35},
+        		 {name: 'John', surname: 'James', age: 15},
+        		 {name: 'Jim', surname: 'van Rooyen', age: 125})
+				 {name:"Alfred", surname:"James", age:65})
+// we now have a list of objects
+l.sort({cmp:'', key: function(x) {return x.surname + x.name;}, reverse:true});
+/*
+ cmp='' 		means use the default compare function
+ key			take parameter x which is an object in the list.
+					For example the first object will be x = {name: 'Joe', surname: 'Bloggs', age: 25}.
+					Then return x.surname + x.name --> 'BloggsJoe' which becomes the value of the sort_key
+ reverse: true	reverse the order of the list after the sorting is completed
+*/
+console.log(l);
+// [{name:"Jim", surname:"van Rooyen", age:125}, {name:"Mary", surname:"Knoetzen", age:35},
+//  {name:"John", surname:"James", age:15}, {name:"Alfred", surname:"James", age:65},
+//  {name:"Joe", surname:"Bloggs", age:25}]
+```
+
+
+
+
 
 
 ####extend
@@ -134,7 +205,7 @@ console.log(l)
 *extend(x)* extends the list. x can either be a set of comma separated values or another List object. 
 
 
-Example of extend with comma separated values'
+Example of *extend* with comma separated values'
 ```javascript
 // create new list 'l'
 var l = new py.List(1096, 23, 4, 1, 1096, 56, 10)
@@ -145,7 +216,7 @@ console.log(l);
 // [1096, 23, 4, 99, 1, 1096, 56, 10, 15, 16, 17]
 ```
 
-Example of extend with another List object.
+Example of *extend* with another List object.
 ```javascript
 // create new list 'l'
 var l = new py.List(1096, 23, 4, 1, 1096, 56, 10)
