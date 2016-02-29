@@ -8,7 +8,7 @@
 
 
     // can change global name of package here
-    var global_name = 'py'
+    var global_name = 'py';
 
 
     var py_lite = function() {
@@ -24,7 +24,7 @@
                         occurrences++;
                     }
                 }
-            )
+            );
             return occurrences;
         };
 
@@ -91,12 +91,68 @@
              does not return the element
              */
             this.pop(this.index(value));
-        }
+        };
 
         var reverse = function() {
             // reverse order of list, in-place
             this.arr.reverse()
         };
+
+        var isPrimitive = function (value) {
+            if (typeof(value) === 'string' || typeof(value) == 'number' || typeof(value) == "boolean") {
+                return true;
+            }
+            else { return false;}
+        };
+
+        var basicPrimitiveCmp = function(a,b) {
+            /*
+             values a,b must be primitives
+             sorts numeric ascending,
+             sorts characters alphabetically
+             */
+            if (a < b) {
+                // a before b
+                return -1;
+            }
+            else if (a > b) {
+                // b before a
+                return 1;
+            }
+            else {
+                // a == b
+                return 0;
+            }
+        };
+
+        var objectKeyCmp = function(a,b){
+            /*
+             Compares first key (or property) of an object
+             Arranges in key order, not by the value associated with the key
+             This will happily sort objects of the form
+             [ {key1: value1}, {key2: value2}, ... ] where
+             object only has one property and
+             value is a primitive
+
+             if the object has multiple properties the results are unreliable.
+             This because property order is not guaranteed for an object !!!
+             */
+            if (Object.keys(a)[0] < Object.keys(b)[0]) {
+                // a.key before b.key
+                return -1;
+            }
+            else if ((Object.keys(a)[0] > Object.keys(b)[0])){
+                // a.key after b.key
+                return 1;
+            }
+            else {
+                // a.key = b.key
+                return 0
+            }
+        };
+
+
+
 
         var sort = function() {
             /*  list is sorted in place
@@ -118,58 +174,6 @@
              The 'key' function is very useful and must return a primitive.
              yourKeyFn(yourObject) { returns a primitive search key }
              */
-            function isPrimitive(value) {
-                if (typeof(value) === 'string' || typeof(value) == 'number' || typeof(value) == "boolean") {
-                    return true;
-                }
-                else { return false;}
-            }
-
-            var basicPrimitiveCmp = function(a,b) {
-                /*
-                 values a,b must be primitives
-                 sorts numeric ascending,
-                 sorts characters alphabetically
-                 */
-                if (a < b) {
-                    // a before b
-                    return -1;
-                }
-                else if (a > b) {
-                    // b before a
-                    return 1;
-                }
-                else {
-                    // a == b
-                    return 0;
-                }
-            }
-
-            var objectKeyCmp = function(a,b){
-                /*
-                 Compares first key (or property) of an object
-                 Arranges in key order, not by the value associated with the key
-                 This will happily sort objects of the form
-                 [ {key1: value1}, {key2: value2}, ... ] where
-                 object only has one property and
-                 value is a primitive
-
-                 if the object has multiple properties the results are unreliable.
-                 This because property order is not guaranteed for an object !!!
-                 */
-                if (Object.keys(a)[0] < Object.keys(b)[0]) {
-                    // a.key before b.key
-                    return -1;
-                }
-                else if ((Object.keys(a)[0] > Object.keys(b)[0])){
-                    // a.key after b.key
-                    return 1;
-                }
-                else {
-                    // a.key = b.key
-                    return 0
-                }
-            }
 
             switch (arguments.length) {
                 case 0:
@@ -200,7 +204,7 @@
                             return Object.keys(x)[0];
                         });
                         if (sort_keys.every(function(x) {
-                                if (isPrimitive) {
+                                if (isPrimitive(x)) {
                                     return true;
                                 }
                                 else {
@@ -255,20 +259,53 @@
                 // List object
                 this.arr = this.arr.concat(x.arr);
             }
-        }
+        };
 
         var displayList = function() {
             return JSON.stringify(this.arr);
-        }
+        };
 
-        var print = function(x) {
-            console.log(JSON.stringify(x));
-        }
+        var sorted = function(x) {
+            // x is an object over which we can iterate
+            if (x===undefined || x===null || typeof(x)==='boolean' || typeof(x)==='number' || typeof(x)==='function') {
+                // do nothing
+                return false;
+            }
+            // string is iterable
+            if (typeof(x)==='string') {
+                var result = new List();
+                for (var i= 0; i<x.length; i++) {
+                    result.append(x[i]);
+                }
+            }
+            // array is iterable
+            else if (Array.isArray(x)) {
+                var result = new List();
+                for (var i= 0; i<x.length; i++) {
+                    result.append(x[i]);
+                }
+            }
+            else {
+                // object over whose local properties we can iterate
+                // returns local properties names in alphabetical order
+                result = new List(Object.getOwnPropertyNames(x));
+            }
+            if (arguments.length === 2) {
+                result.sort(arguments[1]);
+            }
+            else {
+                result.sort()
+            }
+            return result;
+        };
+
 
         var List =  function() {
-
+            // List constructor
 
             this.arr = [];
+            // accept individual parameters or a single array
+            // List(1,2,3,4) or List([1,2,3,4])
             if (arguments.length===1 && _.isArray(arguments[0])) {
                 this.arr = arguments[0];
             }
@@ -332,8 +369,11 @@
             toString: displayList};
 
         return {List: List,
-                print: print};
-    }
+                sorted: sorted};
+    };
+
+
+
 
     // test for global window object, as Spider Monkey standalone does not have it
     if (typeof(window) === 'object')
@@ -353,3 +393,6 @@
     }
 
 })();
+
+
+

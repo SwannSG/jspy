@@ -150,3 +150,34 @@ r = l.count(8)
 assert(r,0,'eq',100);
 r = l.index(8);
 assert(r,false,'eq',101);
+
+// test py.sorted()
+r = py.sorted('zdawqrvb');
+assert(r.arr, ['a', 'b', 'd', 'q', 'r', 'v', 'w', 'z'], 'eq', 200);
+r = py.sorted([4,2,8,9,23]);
+assert(r.arr, [2, 4, 8, 9, 23], 'eq', 201);
+r = py.sorted([{z:1}, {z:1}, {wer:"a"}, {w:24}, {vuw:"c"}, {rus:"b"}, {abc:5}]);
+assert(r.arr, [{abc:5}, {rus:"b"}, {vuw:"c"}, {w:24}, {wer:"a"}, {z:1}, {z:1}], 'eq', 202);
+r = py.sorted([{name:"Jim", surname:"van Rooyen", age:125}, {name:"Mary", surname:"Knoetzen", age:35},
+               {name:"John", surname:"James", age:15}, {name:"Joe", surname:"Bloggs", age:25},
+               {name:"Alfred", surname:"James", age:65}]);
+assert(r.arr, [{name:"Jim", surname:"van Rooyen", age:125}, {name:"Mary", surname:"Knoetzen", age:35},
+    {name:"John", surname:"James", age:15}, {name:"Joe", surname:"Bloggs", age:25},
+    {name:"Alfred", surname:"James", age:65}], 'eq', 203);
+
+r = py.sorted([{name:"Jim", surname:"van Rooyen", age:125}, {name:"Mary", surname:"Knoetzen", age:35},
+    {name:"John", surname:"James", age:15}, {name:"Joe", surname:"Bloggs", age:25},
+    {name:"Alfred", surname:"James", age:65}], {cmp:'', key: function(x) {return x.surname;}, reverse:true});
+assert(r.arr, [{name:"Jim", surname:"van Rooyen", age:125}, {name:"Mary", surname:"Knoetzen", age:35},
+    {name:"Alfred", surname:"James", age:65}, {name:"John", surname:"James", age:15},
+    {name:"Joe", surname:"Bloggs", age:25}], 'eq', 204);
+
+r = py.sorted([{name:"Jim", surname:"van Rooyen", age:125}, {name:"Mary", surname:"Knoetzen", age:35},
+    {name:"John", surname:"James", age:15}, {name:"Joe", surname:"Bloggs", age:25},
+    {name:"Alfred", surname:"James", age:65}], {cmp:'', key: function(x) {return x.surname + x.name;}, reverse:true});
+assert(r.arr, [{name:"Jim", surname:"van Rooyen", age:125}, {name:"Mary", surname:"Knoetzen", age:35},
+        {name:"John", surname:"James", age:15}, {name:"Alfred", surname:"James", age:65},
+        {name:"Joe", surname:"Bloggs", age:25}],
+    'eq', 205);
+r = py.sorted({name:"Jim", surname:"van Rooyen", age:125});
+assert(r.arr, ['age', 'name', 'surname'], 'eq', 206)
