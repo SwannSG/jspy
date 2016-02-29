@@ -304,6 +304,36 @@
         };
 
 
+        var type = function(x) {
+            if (x===null) {return 'null';}
+            var to = typeof(x);
+
+            switch (to) {
+                case 'number':
+                    // NaN and Infinity are both numbers
+                    return 'number';
+                    break;
+                case 'boolean':
+                    return 'boolean';
+                    break;
+                case 'string':
+                    return 'string';
+                    break;
+                case 'undefined':
+                    return 'undefined';
+                    break;
+                case 'object':
+                    // can add other constructors
+
+                    // simple object
+                    if (Array.isArray(x)){return 'array';}
+                    else if (x instanceof List) {return 'list';}
+                    else if (x instanceof Date) {return 'date';}
+                    else {return 'object';}
+            }
+            return 'unknown';
+        }
+
         var List =  function() {
             // List constructor
 
@@ -373,7 +403,8 @@
             toString: displayList};
 
         return {List: List,
-                sorted: sorted};
+                sorted: sorted,
+                type: type};
     };
 
 

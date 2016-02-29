@@ -185,3 +185,33 @@ assert(r.arr, ['age', 'name', 'surname'], 'eq', 206)
 
 r = py.sorted(new py.List([6,5,4,3,2,1]));
 assert(r.arr, [1,2,3,4,5,6], 'eq', 207);
+
+// test py.type()
+r = py.type(null);
+assert(r, 'null', 'eq', 300);
+r = py.type([1,2,3,4]);
+assert(r, 'array', 'eq', 301);
+r = py.type(123.45);
+assert(r, 'number', 'eq', 302);
+r = py.type(true);
+assert(r, 'boolean', 'eq', 303);
+r = py.type('some string');
+assert(r, 'string', 'eq', 304);
+var some_var;
+r = py.type(some_var);
+assert(r, 'undefined', 'eq', 305);
+r = py.type({name:'value'});
+assert(r, 'object', 'eq', 306);
+r = py.type(new Date());
+assert(r, 'date', 'eq', 307);
+r = py.type(new py.List());
+assert(r, 'list', 'eq', 308);
+
+
+
+
+
+
+
+
+
