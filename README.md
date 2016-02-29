@@ -261,6 +261,8 @@ Things that are iterable are arrays, strings, List and an object. In this contex
 *sorted* can also take a second *sortObj* parameter. We call *sorted(somethingIterable, sortObj)*. The use of the *sortObj* is described in [sort](#sort).
 
 
+
+
 Example of *sorted('someString')*
 ```javascript
 var result = sorted('someString');
@@ -268,12 +270,17 @@ console.log(result.arr);
 // ['S', 'e', 'g', 'i', 'm', 'n', 'o', 'r', 's', 't']
 ```
 
+
+
 Example of *sorted('someArray')*
 ```javascript
 // array of numbers
 var result = sorted([4,2,8,9,23]);
 console.log(result.arr);
 // [2, 4, 8, 9, 23]
+
+
+
 
 // array of single property (simple) objects
 var result = sorted([{z:1}, {z:1}, {wer:"a"}, {w:24}, {vuw:"c"}, {rus:"b"}, {abc:5}]);
@@ -289,6 +296,9 @@ console.log(result.arr);
 // {name:"Alfred", surname:"James", age:65}, {name:"John", surname:"James", age:15},
 // {name:"Joe", surname:"Bloggs", age:25}]
 ```
+
+
+
 
 Example of *sorted(someObject)*
 ```javascript
