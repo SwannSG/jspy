@@ -131,7 +131,7 @@ console.log(l);
 
 *sort()* is the most complex of the List methods. It is important to keep in mind what the sort_key is. The sort_key must be a Javascript primitive i.e. number, string or boolean or a combination of these.
 
-We do make allowance for sorting reliably on "simple" objects as a convenience and this is shown later. 
+We do make allowance for sorting reliably on "simple" objects as a convenience and this is shown later. "Simple" is an object with a single propertyName and value. 
 
 Where very powerful sort and compare functionality is required there is an option to provide this as a parameter to *sort(sortObj)*. This is a very useful capability and provides a solution for almost any sort requirement.
 
@@ -250,13 +250,13 @@ console.log(l);
 
 ###sorted
 
-This is equivalent to the Python sorted function except the it returns a List object.
+This is equivalent to the Python sorted function except that it returns a List object.
 
 *sorted(somethingIterable)* to invoke. 
 
-If *somethingIterable* isn't iterable *sorted* will return *false*. Things that are not iterable are a null, boolean, number or a function.
+If *somethingIterable* isn't iterable sorted will return false. Things that are not iterable are a null, boolean, number or a function.
 
-Things that are iterable are arrays, strings, List and an object. In this context it is something of the form {propertyName1: value1, propertyName1: valu2, ...}. When sorted is applied to an object of this form it returns a List with the *propertNames* in alphabetical order. 
+Things that are iterable are arrays, strings, List and an object. In this context an object is something of the form {propertyName1: value1, propertyName1: valu2, ...}. When sorted is applied to an object of this form it returns a List with the *propertNames* in alphabetical order. 
 
 *sorted* can also take a second *sortObj* parameter. We call *sorted(somethingIterable, sortObj)*. The use of the *sortObj* is described in [sort](#sort).
 
@@ -275,21 +275,29 @@ var result = sorted([4,2,8,9,23]);
 console.log(result.arr);
 // [2, 4, 8, 9, 23]
 
-// array of single property objects
+// array of single property (simple) objects
 var result = sorted([{z:1}, {z:1}, {wer:"a"}, {w:24}, {vuw:"c"}, {rus:"b"}, {abc:5}]);
 console.log(result.arr);
 // [{abc:5}, {rus:"b"}, {vuw:"c"}, {w:24}, {wer:"a"}, {z:1}, {z:1}]
 
+// array of objects and using sortObj = {cmp:'', key: function(x) {return x.surname;}, reverse:true}
 var result = py.sorted([{name:"Jim", surname:"van Rooyen", age:125}, {name:"Mary", surname:"Knoetzen", age:35},
 						{name:"John", surname:"James", age:15}, {name:"Joe", surname:"Bloggs", age:25},
 						{name:"Alfred", surname:"James", age:65}], {cmp:'', key: function(x) {return x.surname;}, reverse:true});
+console.log(result.arr);
+// [{name:"Jim", surname:"van Rooyen", age:125}, {name:"Mary", surname:"Knoetzen", age:35},
+// {name:"Alfred", surname:"James", age:65}, {name:"John", surname:"James", age:15},
+// {name:"Joe", surname:"Bloggs", age:25}]
+```
 
-
+Example of *sorted(someObject)*
+```javascript
+result = py.sorted({name:"Jim", surname:"van Rooyen", age:125});
+console.log(result.arr);
+// ['age', 'name', 'surname']
 ```
 
 
-
- 
 
 
 
