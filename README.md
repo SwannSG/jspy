@@ -126,7 +126,8 @@ console.log(l);
 // [10, 56, 1096, 1, 99, 4, 23, 1096]
 ```
 
-####sort (#sort)
+
+####sort
 
 *sort()* is the most complex of the List methods. It is important to keep in mind what the sort_key is. The sort_key must be a Javascript primitive i.e. number, string or boolean or a combination of these.
 
@@ -257,7 +258,7 @@ If *somethingIterable* isn't iterable *sorted* will return *false*. Things that 
 
 Things that are iterable are arrays, strings, List and an object. In this context it is something of the form {propertyName1: value1, propertyName1: valu2, ...}. When sorted is applied to an object of this form it returns a List with the *propertNames* in alphabetical order. 
 
-*sorted* can also take a second *sortObj* parameter. We call *sorted(somethingIterable, sortObj)*. The use of the *sortObj* is described in [sort] (sort).
+*sorted* can also take a second *sortObj* parameter. We call *sorted(somethingIterable, sortObj)*. The use of the *sortObj* is described in [sort](#sort).
 
 
 Example of *sorted('someString')*
