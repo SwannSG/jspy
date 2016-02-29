@@ -179,5 +179,9 @@ assert(r.arr, [{name:"Jim", surname:"van Rooyen", age:125}, {name:"Mary", surnam
         {name:"John", surname:"James", age:15}, {name:"Alfred", surname:"James", age:65},
         {name:"Joe", surname:"Bloggs", age:25}],
     'eq', 205);
+
 r = py.sorted({name:"Jim", surname:"van Rooyen", age:125});
 assert(r.arr, ['age', 'name', 'surname'], 'eq', 206)
+
+r = py.sorted(new py.List([6,5,4,3,2,1]));
+assert(r.arr, [1,2,3,4,5,6], 'eq', 207);

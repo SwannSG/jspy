@@ -285,6 +285,10 @@
                     result.append(x[i]);
                 }
             }
+            else if (x instanceof List) {
+                // x is List object
+                var result = x;
+            }
             else {
                 // object over whose local properties we can iterate
                 // returns local properties names in alphabetical order
@@ -371,8 +375,6 @@
         return {List: List,
                 sorted: sorted};
     };
-
-
 
 
     // test for global window object, as Spider Monkey standalone does not have it

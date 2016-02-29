@@ -126,7 +126,7 @@ console.log(l);
 // [10, 56, 1096, 1, 99, 4, 23, 1096]
 ```
 
-####sort
+####sort (#sort)
 
 *sort()* is the most complex of the List methods. It is important to keep in mind what the sort_key is. The sort_key must be a Javascript primitive i.e. number, string or boolean or a combination of these.
 
@@ -247,8 +247,48 @@ console.log(l);
 // [1096, 23, 4, 99, 1, 1096, 56, 10, 15, 16, 17]
 ```
 
+###sorted
+
+This is equivalent to the Python sorted function except the it returns a List object.
+
+*sorted(somethingIterable)* to invoke. 
+
+If *somethingIterable* isn't iterable *sorted* will return *false*. Things that are not iterable are a null, boolean, number or a function.
+
+Things that are iterable are arrays, strings, List and an object. In this context it is something of the form {propertyName1: value1, propertyName1: valu2, ...}. When sorted is applied to an object of this form it returns a List with the *propertNames* in alphabetical order. 
+
+*sorted* can also take a second *sortObj* parameter. We call *sorted(somethingIterable, sortObj)*. The use of the *sortObj* is described in [sort] (sort).
 
 
+Example of *sorted('someString')*
+```javascript
+var result = sorted('someString');
+console.log(result.arr);
+// ['S', 'e', 'g', 'i', 'm', 'n', 'o', 'r', 's', 't']
+```
+
+Example of *sorted('someArray')*
+```javascript
+// array of numbers
+var result = sorted([4,2,8,9,23]);
+console.log(result.arr);
+// [2, 4, 8, 9, 23]
+
+// array of single property objects
+var result = sorted([{z:1}, {z:1}, {wer:"a"}, {w:24}, {vuw:"c"}, {rus:"b"}, {abc:5}]);
+console.log(result.arr);
+// [{abc:5}, {rus:"b"}, {vuw:"c"}, {w:24}, {wer:"a"}, {z:1}, {z:1}]
+
+var result = py.sorted([{name:"Jim", surname:"van Rooyen", age:125}, {name:"Mary", surname:"Knoetzen", age:35},
+						{name:"John", surname:"James", age:15}, {name:"Joe", surname:"Bloggs", age:25},
+						{name:"Alfred", surname:"James", age:65}], {cmp:'', key: function(x) {return x.surname;}, reverse:true});
+
+
+```
+
+
+
+ 
 
 
 
