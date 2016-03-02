@@ -16,7 +16,7 @@ for item in something:
 
 JS loop is not so straightforward. The "something" impacts the type of loop to be used. 
 
-For looping over an array or string use the following. We expect the object to have a length property like *arr.length*. *Break* and *continue* work just fine.
+For looping over an array or string use the following. We expect the object to have a length property like *arr.length*. *break* and *continue* work just fine.
 
 Don't be seduced into using **any other** looping structures for arrays or strings. 
 
@@ -52,6 +52,9 @@ JS has a very elegant way of iterating over an array (not a string) without a lo
 *arr.reduce()*	returns a single value after going through each element in array. No example shown here.
 
 
+
+
+
 Test each and every element in an array using *some* or *every* returning a boolean.
 
 ```javascript
@@ -73,6 +76,9 @@ console.log(arr_some);
 // false
 ```
 
+
+
+
 Transform each and every element in an array using *map* and return an array.
 
 ```javascript
@@ -86,6 +92,9 @@ var arr_map = arr.map(function(x) {return 10*x;})
 console.log(arr_map);
 // 110,120,130,140
 ```
+
+
+
 
 Filter or reduce the elements in an array using *filter* and return an array. 
 
@@ -103,6 +112,8 @@ console.log(arr_filter);
 // 11, 12
 ```
 
+
+
 Do something with each element but don't actually return anything using *forEach*. Not sure exactly where this would be used.
 
 ```javascript
@@ -116,16 +127,27 @@ arr.forEach(function(x) {console.log(x);})
 // logs 11, 12, 13 ,14
 ```
 
-Now consider a JS object that has property names. This has the form {propName1: value1, propName2: value2, ...}. Property names can be local to the object, or they may be up the prototype chain. We can loop over the property names attached to the object. But you **cannot** use the array traversing techniques.
+Now consider a JS object that has property names. This has the form {propName1: value1, propName2: value2, ...}. Property names can be local to the object, or they may be up the prototype chain. We can loop over the property names attached to the object. But you **cannot** use the array traversing techniques. So *for(var index=0; index < someObj.length; index++)* and *while(index < someObj.length)* are **not** directly usable.
 
-So *for(var index=0; index < someObj.length; index++)* and *while(index < someObj.length)* are **not** usable.
+The *for (var propName in someObj)*, known as **for...in** is the right construct to loop through property names on an object.
 
-The *for (var propName in someObj)* is the right construct to loop through property names on an object. The loop will iterate over all enumerable properties of the object itself and those the object inherits from its constructor's prototype. Also, this construct does not guarantee the order of property names. Which is why you don't use it for arrays.
+The loop will iterate over all enumerable propert names on the object, plus anything on the constructor's prototype. **for...in*** does not guarantee the order of property names. Which is why you don't use it for arrays.
+
 
 
 ```javascript
 // define an object
 var obj = {a:1, b:2, c:[1,2,3], d:{aa:1}, e: function() {}};
+
+
+function NewObjConstruct() {
+	this.one = 100;
+	this.two = 200;
+	this.three = 300;
+}
+NewObjConstruct.prototype = obj;
+
+
 
 // use this construct to iterate over an object and get enumerable property names
 // 	includes local properties directly on the object
@@ -136,8 +158,11 @@ for (var propName in obj) {
 }
 ```
 
-If you want **only** local properties directly on the object then use these constructs.
 
+
+
+
+If you want **only** local properties directly on the object then use these constructs.
 
 ```javascript
 // define an object
@@ -166,5 +191,39 @@ for (var index=0; index<propNames.length; index++) {
 
 
 
+Here is an example that shows how **for..in** iterates over all property names, while *Object.keys(someObj)* just returns local properties. 
+
+```javascript
+// construct a new object called objA
+var obj = {a:1, b:2, c:[1,2,3], d:{aa:1}, e: function() {}};
+// constructor which has local properties 'one', 'two', 'three'
+// and on the prototype chain has properties 'a', 'b', 'c', 'd', 'e'
+function ConstructObjA() {
+    this.one = 100;
+    this.two = 200;
+    this.three = 300;
+}
+ConstructObjA.prototype = obj;
+var objA = new ConstructObjA();
+// objA is now constructed
+
+// loop over all property names associated with objA
+for (var propName in objA) {
+    console.log(propName);
+    //'one' then 'two' then 'three' then 'a' then 'b' then 'c' then 'd' then 'e'
+    // note!!! - the order is not guaranteed.
+    // notice property names on the prototype chain are included
+}
+
+// loop over just the local properties on objA
+var localPropertyNames = Object.keys(objA);
+var index = 0
+while (index<localPropertyNames.length) {
+    console.log(localPropertyNames[index]);
+    //'one' then 'two' then 'three'
+    // local properties only
+    index++
+}
+```
 
 
