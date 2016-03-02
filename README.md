@@ -256,7 +256,7 @@ This is equivalent to the Python sorted function except that it returns a List o
 
 If *somethingIterable* isn't iterable sorted will return false. Things that are not iterable are a null, boolean, number or a function.
 
-Things that are iterable are arrays, strings, List and an object. In this context an object is something of the form {propertyName1: value1, propertyName1: valu2, ...}. When sorted is applied to an object of this form it returns a List with the *propertNames* in alphabetical order. 
+Things that are iterable are arrays, strings, List and an object. In this context an object is something of the form {propertyName1: value1, propertyName1: valu2, ...}. When sorted is applied to an object of this form it returns a List with the *propertyNames* in alphabetical order. 
 
 *sorted* can also take a second *sortObj* parameter. We call *sorted(somethingIterable, sortObj)*. The use of the *sortObj* is described in [sort](#sort).
 
@@ -298,14 +298,27 @@ console.log(result.arr);
 ```
 
 
-
-
 Example of *sorted(someObject)*
 ```javascript
 result = py.sorted({name:"Jim", surname:"van Rooyen", age:125});
 console.log(result.arr);
 // ['age', 'name', 'surname']
 ```
+
+###type
+
+Something similar to Python's **type(obj)** function. **type()** returns a string.
+
+|Object Type   | Returns    |
+|:------------:|:----------:| 
+|number        |'number'    |
+|boolean       |'boolean'   |
+|string        |'string'    |
+|undefined     |'undefined  |
+|array         |'array'     |
+|list		   |'list'      |
+|date		   |'date'      |    
+
 
 
 
