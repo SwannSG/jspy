@@ -10,6 +10,15 @@
     // can change global name of package here
     var global_name = 'py';
 
+    // return explicit object type
+    // [ConstructorName, string_to_return]
+    // py.type(obj) --> if List type returns 'list'
+    var OBJ_TYPES = [
+        ['List', 'list'],
+        ['Junk', 'junk']
+    ]
+
+
 
     var py_lite = function() {
         'use strict';
@@ -323,16 +332,27 @@
                     return 'undefined';
                     break;
                 case 'object':
-                    // can add other constructors
-
-                    // simple object
                     if (Array.isArray(x)){return 'array';}
-                    else if (x instanceof List) {return 'list';}
-                    else if (x instanceof Date) {return 'date';}
-                    else {return 'object';}
+                    if (x instanceof List) {return 'list';}
+                    if (x instanceof Date) {return 'date';}
+                    // test for user-defined constructors
+                    for (var i=0; i<OBJ_TYPES.length;i++) {
+                            var expr = 'expr = (typeof ' + OBJ_TYPES[i][0] + '!=="undefined");'
+                            eval(expr);
+                            // does OBJ_TYPES[i][0] constructor actually exist
+                            if (expr) {
+                                expr = 'expr = (x instanceof ' + OBJ_TYPES[i][0] + ');';
+                                eval(expr);
+                                // is OBJ_TYPES[i][0] the constructor for the object
+                                if (expr) {
+                                    return OBJ_TYPES[i][1];
+                                }
+                            }
+                    }
+                    return 'object';
             }
             return 'unknown';
-        }
+        };
 
         var List =  function() {
             // List constructor
