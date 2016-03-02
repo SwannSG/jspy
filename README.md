@@ -326,7 +326,7 @@ Something similar to Python's **py.type(obj)** function. **type(obj)** returns a
 
 It is also possible to add your own Constructor names to ensure *type* identifies them intelligently.
 
-To do this set OBJ_TYPES is py_lite.js.
+To do this set OBJ_TYPES in py_lite.js.
 
 OBJ_TYPES is an array.Each element in OBJ_TYPE is an array of two elements [Constructor, stringToReturn].
 
