@@ -159,7 +159,7 @@ console.log(l);
 // [{'abc': 5}, {'rus': 'b'}, {'vuw': 'c'}, {'w': 24}, {'wer': 'a'}, {'z': 1}, {'z': 1}]
 ```
 
-An importand word of caution. Where the objects in the list have more than one property {property1: value, property2:value} do not use *sort()*. This is because the property order in a Javascrript object is not guaranteed. So  {property1: value, property2:value} can arbitrarily become {property2: value, property1:value} and then the simple sort, which picks up the first property name on the object as the key, will not work correctly. To solve this we use *sort(sortObj)* on a complex object.
+An important word of caution. Where the objects in the list have more than one property {property1: value, property2:value} do not use *sort()*. This is because the property order in a JavaScript object is not guaranteed. So  {property1: value, property2:value} can arbitrarily become {property2: value, property1:value} and then the simple sort, which picks up the first property name on the object as the key, will not work correctly. To solve this we use *sort(sortObj)* on a complex object.
 
 *sortObj* is an object literal and has the form
 ```javascript
@@ -307,7 +307,8 @@ console.log(result.arr);
 
 ###type
 
-Something similar to Python's **type(obj)** function. **type()** returns a string.
+Something similar to Python's **py.type(obj)** function. **type(obj)** returns a string.
+
 
 |Object Type   | Returns    |
 |:------------:|:----------:| 
@@ -318,8 +319,22 @@ Something similar to Python's **type(obj)** function. **type()** returns a strin
 |array         |'array'     |
 |list		   |'list'      |
 |date		   |'date'      |    
+|<user constructor>|<user defined> |
+|object		   | 'object'   |
 
 
+
+It is also possible to add your own Constructor names to ensure *type* identifies them intelligently.
+
+To do this set OBJ_TYPES is py_lite.js.
+
+OBJ_TYPES is an array.Each element in OBJ_TYPE is an array of two elements [Constructor, stringToReturn].
+
+```javascript
+// List constructor, returns 'list'
+// Test constructor, returns 'test'
+var OBJ_TYPES = [['List', 'list'], ['Test', 'test']]
+```
 
 
 

@@ -15,7 +15,7 @@
     // py.type(obj) --> if List type returns 'list'
     var OBJ_TYPES = [
         ['List', 'list'],
-        ['Junk', 'junk']
+        ['Test', 'test']
     ]
 
 
