@@ -191,7 +191,7 @@ for (var index=0; index<propNames.length; index++) {
 
 
 
-Here is an example that shows how **for..in** iterates over all property names, while *Object.keys(someObj)* just returns local properties. 
+Here is an example that shows how **for..in** iterates over all property names, while **Object.keys(someObj)** just returns local properties. 
 
 ```javascript
 // construct a new object called objA
@@ -225,5 +225,39 @@ while (index<localPropertyNames.length) {
     index++
 }
 ```
+
+Finally, what if you want to extract property names on an object only on the prototype chain. We want *all properties* minus *local properties*.
+
+// construct a new object called objA
+var obj = {a:1, b:2, c:[1,2,3], d:{aa:1}, e: function() {}};
+// constructor which has local properties 'one', 'two', 'three'
+// and on the prototype chain has properties 'a', 'b', 'c', 'd', 'e'
+function ConstructObjA() {
+    this.one = 100;
+    this.two = 200;
+    this.three = 300;
+}
+ConstructObjA.prototype = obj;
+var objA = new ConstructObjA();
+// objA is now constructed
+
+var allProperties = [];
+for (var propName in objA) {
+    allProperties.push(propName);
+}
+var localProperties = Object.keys(objA);
+var protoProperties = allProperties.filter(
+            function(x) {
+                // if x is not in localProperties
+                if (localProperties.indexOf(x) === -1) {
+                    // property is on prototype chain
+                    return x;
+                }
+            }
+)
+console.log(protoProperties);
+// 'a' then 'b' then 'c' then 'd' then 'e'
+
+
 
 
