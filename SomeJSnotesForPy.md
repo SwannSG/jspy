@@ -226,8 +226,9 @@ while (index<localPropertyNames.length) {
 }
 ```
 
-Finally, what if you want to extract property names on an object only on the prototype chain. We want *all properties* minus *local properties*.
+Finally, if you want to extract property names on an object only on the prototype chain. We want *all properties* minus *local properties*.
 
+```javascript
 // construct a new object called objA
 var obj = {a:1, b:2, c:[1,2,3], d:{aa:1}, e: function() {}};
 // constructor which has local properties 'one', 'two', 'three'
@@ -257,7 +258,7 @@ var protoProperties = allProperties.filter(
 )
 console.log(protoProperties);
 // 'a' then 'b' then 'c' then 'd' then 'e'
-
+```
 
 
 
