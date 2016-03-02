@@ -1,6 +1,6 @@
 ## Some notes on JS if you are an old Python programer
 
-###Looping
+###Iterating (looping) Over Something
 
 JS looping sucks when compared to Python.
 
@@ -15,6 +15,10 @@ for item in something:
 ```
 
 JS loop is not so straightforward. The "something" impacts the type of loop to be used. 
+
+
+
+####Looping over an array or string
 
 For looping over an array or string use the following. We expect the object to have a length property like *arr.length*. *break* and *continue* work just fine.
 
@@ -37,6 +41,11 @@ while (index<arr.length) {
 	index++	
 }
 ``` 
+
+
+####Iterating over an array without a loop
+
+
 JS has a very elegant way of iterating over an array (not a string) without a loop. These are well worth knowing about. But you cannot use *break* or *continue* while iterating.
 
 *arr.every()* 	returns true if every element in array satisfies a particular condition.
@@ -50,8 +59,6 @@ JS has a very elegant way of iterating over an array (not a string) without a lo
 *arr.forEach()* returns nothing, but something can be done on each element in array.
 
 *arr.reduce()*	returns a single value after going through each element in array. No example shown here.
-
-
 
 
 
@@ -126,6 +133,10 @@ var arr = [11,12,13,14];
 arr.forEach(function(x) {console.log(x);})
 // logs 11, 12, 13 ,14
 ```
+
+
+####Iterating over property names associated with an object
+
 
 Now consider a JS object that has property names. This has the form {propName1: value1, propName2: value2, ...}. Property names can be local to the object, or they may be up the prototype chain. We can loop over the property names attached to the object. But you **cannot** use the array traversing techniques. So *for(var index=0; index < someObj.length; index++)* and *while(index < someObj.length)* are **not** directly usable.
 
