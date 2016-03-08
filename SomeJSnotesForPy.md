@@ -58,7 +58,7 @@ JS has a very elegant way of iterating over an array (not a string) without a lo
 
 *arr.forEach()* returns nothing, but something can be done on each element in array.
 
-*arr.reduce()*	returns a single value after going through each element in array. No example shown here.
+*arr.reduce()*	returns a single value after going through each element in array.
 
 
 
@@ -132,6 +132,44 @@ var arr = [11,12,13,14];
 
 arr.forEach(function(x) {console.log(x);})
 // logs 11, 12, 13 ,14
+```
+
+
+Reduce an array to a single value.
+
+```javascript
+/*
+ sum all the values in an array
+ each element, excluding first element 11, appears as a parameter x to the function
+ x0 is an accumulator
+		x0 initial value = 11 (first value in arr)
+*/
+
+var arr = [11,12,13,14];
+
+var arr_reduce = arr.reduce(function(x0,x) {console.log(x0,x); return x0 + x;})
+// logs 11 12 then 23 13 then 36 14
+console.log(arr_reduce)
+// logs 50
+
+
+
+
+/*
+ sum all the values in an array plus 100
+ 100 is passed as second argument to arr.reduce(function, 100)
+ each element appears as a parameter x to the function
+	including 11
+ x0 is an accumulator
+	x0 initial value = 100 (second argument)	 	 
+*/
+
+var arr = [11,12,13,14];
+
+var arr_reduce = arr.reduce(function(x0,x) {console.log(x0,x); return x0 + x;}, 100)
+// logs 100 11 then 111 12 then 123 13 then 136 14
+console.log(arr_reduce)
+// logs 150
 ```
 
 

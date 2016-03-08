@@ -4,6 +4,8 @@
  *      only _.isEqual() method is used
  */
 
+load(['lodash.js']);
+
 (function(){
 
 
@@ -360,7 +362,7 @@
             this.arr = [];
             // accept individual parameters or a single array
             // List(1,2,3,4) or List([1,2,3,4])
-            if (arguments.length===1 && _.isArray(arguments[0])) {
+            if (arguments.length===1 && Array.isArray(arguments[0])) {
                 this.arr = arguments[0];
             }
             else {
