@@ -135,7 +135,7 @@ arr.forEach(function(x) {console.log(x);})
 ```
 
 
-Reduce an array to a single value.
+Reduce an array to a single value using *reduce* and return a single value.
 
 ```javascript
 /*
