@@ -165,7 +165,7 @@ Review the code in *4*.
 
 The actual function we want to run at some future time is **fn_to_exec**.
 
-The function **init** is only there to setup the initial values of x,y, and z. Remember we may not have easy access to these initial conditions at the time **fn_to_exec** is called.
+The function **init** is there to setup the initial values of x,y, and z. Remember we may not have easy access to these initial conditions at the time **fn_to_exec** is called.
 
 Also function **init** returns the **fn_to_exec** function.    
 
