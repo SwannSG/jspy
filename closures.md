@@ -76,6 +76,7 @@ function xyz() {
 
 We have.
 
+|----------------|---------------------------------------------------------------------------------------------|
 |window-------->a|	can be referenced in *window scope*, but also could be referenced in *function xyz() scope*|
 |function xyz-->a|	can only be referenced in *function xyz() scope*|
 
@@ -94,7 +95,8 @@ Keep in mind we may not know or have easy access to these inital conditions when
 
 We can establish multiple execution options using the same function but with different initial conditions.
 
-|same function initial_conditions_1| function will be called at some future time and contains initial_conditions_1|
+|-----------------------------------|------------------------------------------------------------------------------|
+|same function initial_conditions_1 | function will be called at some future time and contains initial_conditions_1|
 |same function initial_conditions_2 | function will be called at some future time and contains initial_conditions_2|
 |same function initial_conditions_3 | function will be called at some future time and contains initial_conditions_3|
 
