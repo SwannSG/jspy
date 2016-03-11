@@ -4,7 +4,7 @@ Javascript allows a function to reference a parent variable outside the function
 
 Function abc() has a closure around init. 
 
-In general, it is a function that "holds" a reference or references, to something in another scope.
+In general, it is a function that "holds" a reference, to something in a parent scope.
 
 ```javascript
 // 1
@@ -58,9 +58,9 @@ abc();
 
 ###Variable Scope
 
-JS uses lexical scoping. References to a variable are associated with a scope. For example in *3*, **a** is associated the 'window' scope.
+JS uses lexical scoping. References to a variable are associated with a scope. For example in *3*, **a** is associated with the 'window' scope.
 
-But in the *function xyz*, **a** is associated with the 'xyz' scope. These are two different references.
+But in the **<function xyz>.a** is associated with the scope of **function xyz**. These are two separate and different references.
 
 ```javascript
 // 3
@@ -81,17 +81,17 @@ We have.
 |window.a or a   |	can be referenced in *window scope*, but also could be referenced in *function xyz() scope*|
 |<function xyz>.a|	can only be referenced in *function xyz() scope*|
 
-In this instance *<function xyz>.a* reference "hides" the reference to *window.a*.
+In this instance **<function xyz>.a** reference masks the reference to **window.a**. It does not overwrite the value of **window.a**.
 
 When **a** is encountered,
 
-..*first look in the local scope,
+first look in the local scope,
 
-..*then the parent scope,
+then the parent scope,
 
-..*then the grandparent scope,
+then the grandparent scope,
 
-..*and finally all the way up to the "root" scope.
+and finally all the way up to the "root" scope.
 
 If **a** is never found a *ReferenceError: a is not defined* will be thrown. This is called the **Scope Chain**.   
 
@@ -106,7 +106,8 @@ Keep in mind we may not know or have easy access to these inital conditions when
 
 We can establish multiple execution options using the same function but with different initial conditions.
 
-Apparently this is called a Function Factory.
+Apparently this is also called a Function Factory.
+
 
 |  									     |                                                                              |
 |----------------------------------------|------------------------------------------------------------------------------|
@@ -117,16 +118,24 @@ Apparently this is called a Function Factory.
 ```javascript
 // 4
 
-function initial_conditions(x,y,z) {
+/*
+	We want to execute fn_to_exec at a future time.
+	We want fn_to_exec to have different initial values.
+	We set these initial values up ahead of time.
+		f_init_1	fn_to_exec with init_1 values
+		f_init_2	fn_to_exec with init_2 values	
+*/
+
+
+function init(x,y,z) {
 	/*	
-		initial_conditions are defined here
-		in this case x,y,z are the initial_conditions
-			in the real world you may not have easy access to these initial condions
-			when fn_to_exec() runs. That is why we use this construct. 
+		Initial values for x,z,z are passed as arguments to init()
+		We may not have easy access to these initial condions when fn_to_exec() runs.
+	    That is why we use this Factory Function construct. 
 	*/
 
 	function fn_to_exec() {
-		// this is the function you want to execute at some future time
+		// this is the function we want to execute at some future time
 		return x + y + z;
 	}
 
@@ -136,17 +145,17 @@ function initial_conditions(x,y,z) {
 
 // f_init_1 reference to function 'fn_to_exec' with
 // initial conditions 'a','b','c' waiting to be run at some future time 
-var f_init_1 = initial_conditions('a','b','c');
+var f_init_1 = init('a','b','c');
 
 // f_init_2, function 'fn_to_exec' with
 // initial conditions 'd','e','f' waiting to be run at some future time 
-var f_init_2 = initial_conditions('d','e','f');
+var f_init_2 = init('d','e','f');
 
-// invoke 'f_init_1' which causes 'fn_to_exec' to run with initial_conditions_1 
+// invoke 'f_init_1' which causes 'fn_to_exec' to run with init_1 
 f_init_1();
 // 'abc'
 
-// invoke 'f_init_2' which causes 'fn_to_exec' to run with initial_conditions_2 
+// invoke 'f_init_2' which causes 'fn_to_exec' to run with init_2 
 f_init_2();
 // 'def'
 
@@ -156,9 +165,9 @@ Review the code in *4*.
 
 The actual function we want to run at some future time is **fn_to_exec**.
 
-The function **initial_conditions** is only there to setup the initial values of x,y, and z. Remember we may not have easy access to these initial conditions at the time **fn_to_exec** is called.
+The function **init** is only there to setup the initial values of x,y, and z. Remember we may not have easy access to these initial conditions at the time **fn_to_exec** is called.
 
-Also function **initial_conditions** returns the **fn_to_exec** function.    
+Also function **init** returns the **fn_to_exec** function.    
 
 
 
