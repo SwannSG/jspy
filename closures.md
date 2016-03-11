@@ -60,7 +60,7 @@ abc();
 
 JS uses lexical scoping. References to a variable are associated with a scope. For example in *3*, **a** is associated with the 'window' scope.
 
-But in the **<function xyz>.a** is associated with the scope of **function xyz**. These are two separate and different references.
+But in the **function xyz.a** is associated with the scope of **function xyz**. These are two separate and different references.
 
 ```javascript
 // 3
@@ -79,9 +79,9 @@ We have.
 | Reference      | Description                                                                                             |
 |----------------|---------------------------------------------------------------------------------------------|
 |window.a or a   |	can be referenced in *window scope*, but also could be referenced in *function xyz() scope*|
-|<function xyz>.a|	can only be referenced in *function xyz() scope*|
+|function xyz.a  |	can only be referenced in *function xyz() scope*|
 
-In this instance **<function xyz>.a** reference masks the reference to **window.a**. It does not overwrite the value of **window.a**.
+In this instance **function xyz.a** reference masks the reference to **window.a**. It does not overwrite the value of **window.a**.
 
 When **a** is encountered,
 
