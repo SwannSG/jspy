@@ -78,12 +78,22 @@ We have.
 
 | Reference      | Description                                                                                             |
 |----------------|---------------------------------------------------------------------------------------------|
-|window-------->a|	can be referenced in *window scope*, but also could be referenced in *function xyz() scope*|
-|function xyz-->a|	can only be referenced in *function xyz() scope*|
+|window.a or a   |	can be referenced in *window scope*, but also could be referenced in *function xyz() scope*|
+|<function xyz>.a|	can only be referenced in *function xyz() scope*|
 
-In this instance *function xyz-->a* reference "hides" the reference to *window-->a*.
+In this instance *<function xyz>.a* reference "hides" the reference to *window.a*.
 
-When **a** is encountered, first look in the local scope, then the parent scope, then the grandparent scope, and finally all the way up to the "root" scope. If **a** is never found a *ReferenceError: a is not defined* will be thrown. This is called the **Scope Chain**.   
+When **a** is encountered,
+
+..*first look in the local scope,
+
+..*then the parent scope,
+
+..*then the grandparent scope,
+
+..*and finally all the way up to the "root" scope.
+
+If **a** is never found a *ReferenceError: a is not defined* will be thrown. This is called the **Scope Chain**.   
 
 
 ###Practical Closures
@@ -95,6 +105,8 @@ We often want to execute a function at some future time, with some initial condi
 Keep in mind we may not know or have easy access to these inital conditions when the function is actually called. 
 
 We can establish multiple execution options using the same function but with different initial conditions.
+
+Apparently this is called a Function Factory.
 
 |  									     |                                                                              |
 |----------------------------------------|------------------------------------------------------------------------------|
@@ -110,31 +122,31 @@ function initial_conditions(x,y,z) {
 		initial_conditions are defined here
 		in this case x,y,z are the initial_conditions
 			in the real world you may not have easy access to these initial condions
-			when function_to_run_in_future() runs. That is why we use this construct. 
+			when fn_to_exec() runs. That is why we use this construct. 
 	*/
 
-	function function_to_run_in_future() {
+	function fn_to_exec() {
 		// this is the function you want to execute at some future time
 		return x + y + z;
 	}
 
 	// make the function 'stuff_to_do' visible
-	return function_to_run_in_future;
+	return fn_to_exec;
 }
 
-// f_init_1 reference to function 'function_to_run_in_future' with
+// f_init_1 reference to function 'fn_to_exec' with
 // initial conditions 'a','b','c' waiting to be run at some future time 
 var f_init_1 = initial_conditions('a','b','c');
 
-// f_init_2, function 'function_to_run_in_future' with
+// f_init_2, function 'fn_to_exec' with
 // initial conditions 'd','e','f' waiting to be run at some future time 
 var f_init_2 = initial_conditions('d','e','f');
 
-// invoke 'f_init_1' which causes 'function_to_run_in_future' to run with initial_conditions_1 
+// invoke 'f_init_1' which causes 'fn_to_exec' to run with initial_conditions_1 
 f_init_1();
 // 'abc'
 
-// invoke 'f_init_2' which causes 'function_to_run_in_future' to run with initial_conditions_2 
+// invoke 'f_init_2' which causes 'fn_to_exec' to run with initial_conditions_2 
 f_init_2();
 // 'def'
 
@@ -142,9 +154,11 @@ f_init_2();
 
 Review the code in *4*.
 
-The actual function we want to run at some future time is 'function_to_run_in_future'. The function 'initial_conditions' is only there to setup the initial values of x,y, and z. Remember we may not have easy access to these initial conditions at the time 'function_to_run_in_future' is called.
+The actual function we want to run at some future time is **fn_to_exec**.
 
-Also function 'initial_conditions' returns the 'function_to_run_in_future' function.    
+The function **initial_conditions** is only there to setup the initial values of x,y, and z. Remember we may not have easy access to these initial conditions at the time **fn_to_exec** is called.
+
+Also function **initial_conditions** returns the **fn_to_exec** function.    
 
 
 
