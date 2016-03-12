@@ -2,7 +2,7 @@
 
 
 ![Image of "this" logic]
-(https://github.com/SwannSG/jspy/blob/master/this.svg)
+(https://github.com/SwannSG/jspy/blob/master/this.jpg)
 
 
 
