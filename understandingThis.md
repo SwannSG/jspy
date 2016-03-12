@@ -1,6 +1,7 @@
 #Understanding "this"
 
-[logo]: this.svg
+[logo]: https://github.com/SwannSG/jspy/blob/master/this.svg
+
 
 
 
