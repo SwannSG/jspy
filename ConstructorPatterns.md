@@ -122,14 +122,13 @@ Every function has a **prototype** property. An object literal does not have a p
 We can just as readily attach properties at the prototype level if we know they will always be required.
 
 
-// Constructor/Prototype Pattern ********************************
-
-
 ```javascript
 var Name = function (name, surname) {
 
 	// safety check to make sure "new" keyword is used when constructor Name is called	
-	if (typeof(this.RegExp) === 'function') {throw new Error('constructor Name called without "new" keyword');}
+	if (typeof(this.RegExp) === 'function') {
+		throw new Error('constructor Name called without "new" keyword');
+		}
 
 	/*	
 	 methods to be placed on the prototype can be added here

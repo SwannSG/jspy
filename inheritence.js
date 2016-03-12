@@ -5,8 +5,19 @@ var Methods = function() {
 	return this;
 }
 
+var a =  new Methods();
 
-var m = Methods();
+var b = Object.create(a); 
+
+var c = Object.create(Methods.prototype);
+
+var Stuff = function(x,y) {
+	this.x = x;
+	this.y = y;
+	return this;
+}
+
+var c = Object.create(Methods.prototype, Stuff);
 
 
 
