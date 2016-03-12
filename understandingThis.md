@@ -1,6 +1,8 @@
 #Understanding "this"
 
-[logo]: https://github.com/SwannSG/jspy/blob/master/this.svg
+
+![Image of "this" logic]
+(https://github.com/SwannSG/jspy/blob/master/this.svg)
 
 
 
