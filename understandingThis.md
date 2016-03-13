@@ -15,7 +15,7 @@ In node the global object is *global* and in the global context **this=global**.
 
 ##How do you know which object "this" is referring to ?
 
-See attached diagram.
+
 
 ![Image of "this" logic]
 (https://github.com/SwannSG/jspy/blob/master/this.jpg)
@@ -24,7 +24,7 @@ See attached diagram.
 
 ##Is the function being invoked with “new” ?
 
-When a function is invoked with the **new** keyword, and empty **this** object is created in the called function.
+When a function is invoked with the **new** keyword, an empty **this** object is created in the called function.
 
 See Example 1.
 
@@ -65,6 +65,7 @@ var Widget = function(name, colour) {
 	return this;
 }
 
+// Widget invoked without the "new" keyword 
 widget = Widget('dog', 'brown');
 
 ```
@@ -111,13 +112,15 @@ We can pass context to the callback function using **bind**. See Example 4.
 
 The form is **function_to_be_called.bind(desired_context)**.
 
+Notice **function_to_be_called.bind(desired_context)** has to be invoked with () at the end as **function_to_be_called.bind(desired_context)()**.
+
 
 ```javascript
 // Example 4
 
 var callback = function() {
 	return this.name + this.surname;
-}
+};
 
 var context_1 = {name:'Joe', surname: 'Bloggs'};
 var context_2 = {name:'Jill', surname: 'Jones'};
@@ -132,23 +135,47 @@ callback.bind(context_1)();
 
 To pass parameters to the function see Example 5. 
 
+**function_to_be_called.bind(desired_context, arg_1, arg_2, ...., arg_n)**
+
 ```javascript
 // Example 5
 
 var callback = function(x) {
 	return this.name + this.surname + x;
-}
+};
 
 var context_1 = {name:'Joe', surname: 'Bloggs'};
 var context_2 = {name:'Jill', surname: 'Jones'};
 
 // function_to_be_called.bind(desired_context)(arg_1)
-callback.bind(context_1)('hello');
+callback.bind(context_1, 'hello')();
 // 'JoeBloggs'
 
-callback.bind(context_1)('goodbye');
+callback.bind(context_2, 'goodbye')();
 // 'JillJones'
 ```
+
+In the above examples we invoke **function_to_be_called.bind(desired_context)** immediately.
+
+In practice we don't normally do that. We setup the function with the desired context and arguments, and then when an event occurs the "setup function" is invoked.
+
+```javascript
+// Example 5
+
+var callback = function(x) {
+	result = this.name + this.surname + x;
+};
+
+var context_1 = {name:'Joe', surname: 'Bloggs'};
+
+// callback.bind(context_1, 'helllo') sets up the function
+// when timeout expires the "setup function", callback is called
+var result;
+setTimeout( callback.bind(context_1, 'helllo')  , 3000);
+result
+// JoeBloggshello
+```
+ 
 
 ###function.call() and function.apply()
 
