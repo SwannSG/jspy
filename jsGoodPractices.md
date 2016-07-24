@@ -2,7 +2,9 @@
 
 ###Don't pollute the Global Namespace###
 
-Use a Module Pattern (with one global variable). Other variables are referenced inside the module.
+Use a Module Pattern (with one global variable).
+
+Other variables and methods are referenced inside the module via the single global variable.
 
 var myOneGlobalVariable = (function() {
     var modulePrivateVariableOne = 10;
