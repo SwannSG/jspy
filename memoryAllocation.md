@@ -33,6 +33,7 @@ Compilation Phase
 
 Main Stack
 Execution phase
+
 | Call stack | Reference | Value | Comment                                                                         |
 | ---------- | --------- | ----- | ------------------------------------------------------------------------------- |
 | main       | a         | 3     |                                                                                 |
