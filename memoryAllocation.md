@@ -24,18 +24,20 @@ Compilation Phase
 
 | Call stack | Reference | Value | Comment                                                                         |
 | ---------- | --------- | ----- | ------------------------------------------------------------------------------- |
-|main       | a         |       |                                                                                  |
-|           |           |       | notice because 'b' has no *var* no reference is created in the compilation phase |
-|           | f         |       | reference to 'f', and function f is a blob of text                               |
-|           |           |       | f' is not compiled until it is executed in the execution phase                   |
-|           |           |       | a hidden *scope pointer* points from 'f' to 'main' (1)                           |
+|main        | a         |       |                                                                                  |
+|            |           |       | notice because 'b' has no *var* no reference is created in the compilation phase |
+|main        | f         |       | function f is a blob of text                                                     |
+|            |           |       | function f is not compiled until it is executed in the execution phase           |
+|            |           |       | a hidden *scope pointer* points from 'f' to 'main' (1)                           |
+
 
 Main Stack
 Execution phase
-
-a                       3
-b                       2
-f(6)                    function f called and new heap for 'f' springs to life
+| Call stack | Reference | Value | Comment                                                                         |
+| ---------- | --------- | ----- | ------------------------------------------------------------------------------- |
+| main       | a         | 3     |                                                                                 |
+| main       | b         | 2     | 'b' is created on global scope, because it does not already exist               |
+| main       | f(6)      |       | function 'f' called and new heap for 'f' springs to life                        |
 
 Function 'f' heap
 Compilation phase
