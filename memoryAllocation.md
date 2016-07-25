@@ -22,7 +22,8 @@ f(6);
 Main Stack
 Compilation Phase
 |Call stack | Reference | Value | Comment                                                                          |
-|main       | a         |       |                                                                                  | 
+|-----------|-----------|-------|----------------------------------------------------------------------------------|
+|main       | a         |       |                                                                                  |
 |           |           |       | notice because 'b' has no *var* no reference is created in the compilation phase |
 |           | f         |       | reference to 'f', and function f is a blob of text                               |
 |           |           |       | f' is not compiled until it is executed in the execution phase                   |
