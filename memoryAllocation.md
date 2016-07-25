@@ -15,13 +15,18 @@ function f(c) {
 f(6);
 ```
 
+
+
+
+
 Main Stack
 Compilation Phase
-a                       reference to 'a'
-                        notice because 'b' has no *var* it takes no part in the compilation phase
-f                       reference to 'f', and function f is a blob of text
-                        'f' is not compiled until it is executed in the execution phase
-                        a hidden *scope pointer* points from 'f' to 'main' (1)
+|Call stack | Reference | Value | Comment                                                                          |
+|main       | a         |       |                                                                                  | 
+|           |           |       | notice because 'b' has no *var* no reference is created in the compilation phase |
+|           | f         |       | reference to 'f', and function f is a blob of text                               |
+|           |           |       | f' is not compiled until it is executed in the execution phase                   |
+|           |           |       | a hidden *scope pointer* points from 'f' to 'main' (1)                           |
 
 Main Stack
 Execution phase
