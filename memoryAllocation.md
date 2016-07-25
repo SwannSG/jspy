@@ -15,12 +15,7 @@ function f(c) {
 f(6);
 ```
 
-
-
-
-
-Main Stack
-Compilation Phase
+Main stack compilation phase
 
 | Call stack | Reference | Value | Comment                                                                         |
 | ---------- | --------- | ----- | ------------------------------------------------------------------------------- |
@@ -31,8 +26,7 @@ Compilation Phase
 |            |           |       | a hidden *scope pointer* points from 'f' to 'main' (1)                           |
 
 
-Main Stack
-Execution phase
+Main stack execution phase
 
 | Call stack | Reference | Value | Comment                                                                         |
 | ---------- | --------- | ----- | ------------------------------------------------------------------------------- |
@@ -40,15 +34,22 @@ Execution phase
 | main       | b         | 2     | 'b' is created on global scope, because it does not already exist               |
 | main       | f(6)      |       | function 'f' called and new heap for 'f' springs to life                        |
 
-Function 'f' heap
-Compilation phase
-c                       reference to 'c'
-d                       reference to 'd'
-                        *scope pointer* copied (1)
+Function 'f' heap, compilation phase
 
-Function 'f' heap
-Execution phase
-c                       6 parameter value that is passed
-main.'b'                5 'b' not local, so look up to 'main' using *scope pointer*
-d                       3
-                        'e' not local, so look up to Main using implicit pointer, 'e' does not exist on global so create 'e' on global
+| Call stack | Reference | Value | Comment                                                                         |
+| ---------- | --------- | ----- | ------------------------------------------------------------------------------- |
+| f          | c         |       | Function parameter is a local variable                                          |
+| f          | d         |       |                                                                                 |
+|            |           |       | *scope pointer* copied (1)                                                      |
+
+Function 'f' heap, execution phase
+
+| Call stack | Reference | Value | Comment                                                                         |
+| ---------- | --------- | ----- | ------------------------------------------------------------------------------- |
+| f          | c         | 6     |                                                                                 |
+| main       | b         | 5     | 'b' not local, so follow scope using *scope pointer* (1)                        |
+| f          | d         | 3     |                                                                                 |
+| main       | e         | 2     | 'e' not local, so follow scope using *scope pointer* (1)                        |
+|            |           |       | 'e' does not exist on global so create 'e' on global                            |
+
+When function f completes the heap is destroyed. Not to be confused with 'main.f' reference to the blob of text.
