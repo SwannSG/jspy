@@ -24,7 +24,127 @@ fn1()                           // RHS source 'fn1'
 Scope Manager will hold *global.a* and *global.fn1*. Were 'fn1' to be called and first compiled, then we would add reference *fn1.a* to Scope Manager.
 
 
+##Execution Phase##
 
+Declarations occur before assignment.
+
+Declarations are created in the compile phase. When a declaration is first created it has a value of undefined.
+
+Assignments happen where they naturally occur in the code.  
+
+Function declarations are hoisted.
+
+Variable declarations are hoisted.
+
+Functions declarations are hoisted above variable declarations if there is a tie with same name.
+
+Function expressions behave like a normal variable declaration.
+
+
+
+Code as written. Example 1
+```javascript
+fn1();                          // works fine, 'fn1'
+                                // how can fn1 be called before declaration ?
+function fn1() {
+    console.log('fn1');
+}
+```
+
+How to think about the code
+
+```javascript
+function fn1() {                // Function declarations are hoisted.
+    console.log('fn1');
+}
+fn1();
+```
+end Example 1
+
+Code as written. Example 2
+```javascript
+varFn1();                       // TypeError
+
+var varFn1 = function fn1() {
+    console.log('fn1');
+}
+```
+
+How to think about the code
+```javascript
+var varFn1;                     // declaration, value = undefined, no assignment has taken place
+
+varFn1();                       // undefined()
+
+var varFn1 = function fn1() {   // Assignments happen where they naturally occur in the code.
+    console.log('fn1');
+}
+```
+end Example 2
+
+
+Code as written. Example 3
+```javascript
+foo();
+var foo;
+function foo() {
+    console.log(1);
+}
+foo = function() {
+    console.log(2);
+}
+```
+How to think about the code
+```javascript
+function foo() {                // Functions declarations are hoisted above variable declarations if there is a tie with same name.
+    console.log(1);
+}
+
+var foo;                        // Ignored as global.foo already declared
+
+foo();                          // 1
+
+foo = function() {              // Reassign foo
+    console.log(2);
+}
+```
+end Example 3
+
+
+
+
+
+
+
+
+
+
+
+
+
+##How are these Scopes created##
+
+Scopes are implicitly created by how the code is laid out, specifically how functions are nested. Each time a function is declared a new scope is created. JavaScript uses lexical scoping.
+
+```javascript
+
+function fn1() {                        // scope 1
+    var a = 1;                          // fn1.a
+    function fn2() {                    // scope 2
+        var a = 2;                      // fn2.a
+        function fn3() {                // scope 3
+            var a = 3;                  // fn3.a
+        }
+    }    
+}
+
+It should be clear that scope3 is inside scope2 which is inside scope1. Scope lookup stops once Scope Manager finds the first match for the reference. And Scope Manager always searches from innermost to outermost scope.
+
+If Scope Manager is doing a LHS assignment, and it has traversed all the way up to the root or global scope, the JavaScript engine kindly adds the new reference to the global scope. This may not be the behavior you want or expect.
+
+On the other hand if Scope Manager is doing a RHS lookup, and has run out of places to look, a 'ReferenceError' is thrown.
+
+It is possible to specifically reference the outermost scope from an inside scope by using *global.reference*. The actual name 'global' depends on the environment. In the browser one can use *window.reference*.
 
 ###Example 1###
 
