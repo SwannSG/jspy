@@ -2,7 +2,28 @@
 
 Javascript code is first compiled and then executed. Execution takes place immediately after compilation. Memory is freed up using garbage collection. When an object or a function can no longer be reached, the heap is destroyed when the garbage collector next runs.
 
-When a function is first referenced ....
+##Compilation Phase##
+
+Compilation takes place before the Execution phase.
+
+In the compilation phase variable and function reference names are encountered as the JavaScript engine parses the code. A Scope Manager keeps a scope lookup list of these references for later referral. Scope Manager maintains two pieces of information for a reference, the *scope* plus the *reference* name. We can think of this reference as *scope.name*.
+
+Either a LHS (Left Hand Side) assignment or target is referenced, or a RHS (Right Hand Side) source. If a RHS source is not known by Scope Manager we will get a *ReferenceError*.
+
+```javascript
+// parsing of variable and function names in compilation phase
+var a = 1;                      // LHS 'a' added to scope lookup list as variable reference
+b = 1;                          // ???
+function fn1() {                // 'fn1' added to scope lookup list as function reference
+    var a = 10;                 // the function body is not compiled until it is actually called
+    console.log(a);             // RHS source 'a'
+}   
+fn1()                           // RHS source 'fn1'
+```
+
+Scope Manager will hold *global.a* and *global.fn1*. Were 'fn1' to be called and first compiled, then we would add reference *fn1.a* to Scope Manager.
+
+
 
 
 ###Example 1###
