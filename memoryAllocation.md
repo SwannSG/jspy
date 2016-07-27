@@ -6,15 +6,15 @@ Javascript code is first compiled and then executed. Execution takes place immed
 
 Compilation takes place before the Execution phase.
 
-In the compilation phase variable and function reference names are encountered as the JavaScript engine parses the code. A Scope Manager keeps a scope lookup list of these references for later referral. Scope Manager maintains two pieces of information for a reference, the *scope* plus the *reference* name. We can think of this reference as *scope.name*.
+In the compilation phase variable and function reference names are encountered as the JavaScript engine parses the code. A Scope Manager keeps a scope lookup list of these references for later referral. Scope Manager maintains two pieces of information for a reference, the *scope* plus the *reference* name. We can think of the complete reference as *scope.name*.
 
-Either a LHS (Left Hand Side) assignment or target is referenced, or a RHS (Right Hand Side) source. If a RHS source is not known by Scope Manager we will get a *ReferenceError*.
+Either a LHS (Left Hand Side) declaration, or a RHS (Right Hand Side) source  is referenced. If a RHS source is not known by Scope Manager we will get a *ReferenceError*.
 
 ```javascript
 // parsing of variable and function names in compilation phase
 var a = 1;                      // LHS 'a' added to scope lookup list as variable reference
-b = 1;                          // ???
-function fn1() {                // 'fn1' added to scope lookup list as function reference
+b = 1;                          // assignment not a declaration, if 'b' reference does not exist it will be created in global scope
+function fn1() {                // LHS 'fn1' declaration added to scope lookup list as function reference
     var a = 10;                 // the function body is not compiled until it is actually called
     console.log(a);             // RHS source 'a'
 }   
@@ -23,26 +23,19 @@ fn1()                           // RHS source 'fn1'
 
 Scope Manager will hold *global.a* and *global.fn1*. Were 'fn1' to be called and first compiled, then we would add reference *fn1.a* to Scope Manager.
 
+Declarations are created in the compile phase. When a declaration is first created it has a value of undefined.
+
 
 ##Execution Phase##
 
 Declarations occur before assignment.
 
-Declarations are created in the compile phase. When a declaration is first created it has a value of undefined.
-
 Assignments happen where they naturally occur in the code.  
 
 Function declarations are hoisted.
 
-Variable declarations are hoisted.
+Example 1:
 
-Functions declarations are hoisted above variable declarations if there is a tie with same name.
-
-Function expressions behave like a normal variable declaration.
-
-
-
-Code as written. Example 1
 ```javascript
 fn1();                          // works fine, 'fn1'
                                 // how can fn1 be called before declaration ?
@@ -61,11 +54,14 @@ fn1();
 ```
 end Example 1
 
-Code as written. Example 2
-```javascript
-varFn1();                       // TypeError
 
-var varFn1 = function fn1() {
+Variable declarations are hoisted.
+
+Example 2
+```javascript
+varFn1();                       // TypeError, varFn1 is declared but not yet assigned
+
+var varFn1 = function fn1() {  // varFn1 assignment
     console.log('fn1');
 }
 ```
@@ -83,7 +79,9 @@ var varFn1 = function fn1() {   // Assignments happen where they naturally occur
 end Example 2
 
 
-Code as written. Example 3
+Functions declarations are hoisted above variable declarations if there is a tie with same name.
+
+Example 3
 ```javascript
 foo();
 var foo;
@@ -110,17 +108,7 @@ foo = function() {              // Reassign foo
 ```
 end Example 3
 
-
-
-
-
-
-
-
-
-
-
-
+Function expressions behave like a normal variable declaration.
 
 ##How are these Scopes created##
 
@@ -145,6 +133,10 @@ If Scope Manager is doing a LHS assignment, and it has traversed all the way up 
 On the other hand if Scope Manager is doing a RHS lookup, and has run out of places to look, a 'ReferenceError' is thrown.
 
 It is possible to specifically reference the outermost scope from an inside scope by using *global.reference*. The actual name 'global' depends on the environment. In the browser one can use *window.reference*.
+
+
+
+##Stack and Heap Allocation##
 
 ###Example 1###
 
