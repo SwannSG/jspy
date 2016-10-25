@@ -42,7 +42,7 @@ while (index<arr.length) {
 }
 ``` 
 
-Actually, we now have another useful looping structure, know as **for of** versus **for in**.
+Actually, we now have another useful looping structure, know as **for of** (returns the values) versus **for in** (returns the index). **for of** is most Python like. 
 
 ```javascript
 // loop works fine for string or array
