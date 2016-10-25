@@ -136,6 +136,10 @@ It is possible to specifically reference the outermost scope from an inside scop
 
 
 
+
+
+
+
 ##Stack and Heap Allocation##
 
 ###Example 1###

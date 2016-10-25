@@ -42,6 +42,25 @@ while (index<arr.length) {
 }
 ``` 
 
+Actually, we now have another useful looping structure, know as **for of** versus **for in**.
+
+```javascript
+// loop works fine for string or array
+var arr = [11,12,13,14];
+
+// "for in"  loop
+for (each in arr) {
+    console.log(each);
+    // 0,1,2,3
+}
+
+// "for of"  loop
+for (each of arr) {
+    console.log(each);
+    // [11,12,13,14]
+}
+``` 
+
 
 ####Iterating over an array without a loop
 
